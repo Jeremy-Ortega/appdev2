@@ -55,5 +55,5 @@
 
 - I want to understand and experience the React Native fundamentals and how we can apply it to our course project as well as outside project. 
 
-I want to understand and be comfortable with using typescript and be able to add it in my own tech stack.
+- I want to understand and be comfortable with using typescript and be able to add it in my own tech stack.
 
