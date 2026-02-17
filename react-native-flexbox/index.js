@@ -8,9 +8,11 @@ import JustifyContentBasics from './components/JustifyContent.js';
 import AlignItemsLayout from './components/AlignItems.js';
 import AlignSelfLayout from './components/AlignSelf.js';
 import AlignContentLayout from './components/AlignContent.js';
+import FlexWrapLayout from './components/FlexWrap.js';
+
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in Expo Go or in a native build,
 // the environment is set up appropriately
 
-registerRootComponent(AlignContentLayout);
+registerRootComponent(FlexWrapLayout);
