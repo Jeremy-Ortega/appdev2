@@ -22,7 +22,7 @@ const Signup = () => {
         <TextInput placeholder="Password" style={styles.input} secureTextEntry />
       </View>
       <View style={styles.inputContainer}>
-        <Ionicons name="lock-closed-outline" size={20} color="#666" style={styles.icon} />
+        <Ionicons name="lock-open-outline" size={20} color="#666" style={styles.icon} />
         <TextInput placeholder="Confirm Password" style={styles.input} secureTextEntry />
       </View>
 
