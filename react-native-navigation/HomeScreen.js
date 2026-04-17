@@ -1,12 +1,21 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { createStaticNavigation, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Link } from '@react-navigation/native';
 import { Button } from '@react-navigation/elements';
 
-function HomeScreen() {
+function HomeScreen({route}) {
     const navigation = useNavigation();
+
+  React.useEffect(() => {
+    if (route.params?.post) {
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+      alert('New post: ' + route.params?.post);
+    }
+  }, [route.params?.post]);
+
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -20,6 +29,13 @@ function HomeScreen() {
         }>
         Go to Details
       </Button>
+
+
+        <Button onPress={() => navigation.navigate('CreatePost')}>
+            Create post
+        </Button>
+        <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
+
 
       {/* <Link screen="Details">Go to Details</Link>
       <Button screen="Details">Go to Details</Button> */}
@@ -60,6 +76,32 @@ function DetailsScreen({route}) {
   );
 }
 
+function CreatePostScreen({ route }) {
+  const navigation = useNavigation();
+  const [postText, setPostText] = React.useState('');
+
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap:4}}>
+
+      <TextInput
+        multiline
+        placeholder="What's on your mind?"
+        style={{ height: 200, padding: 10, backgroundColor: 'white' }}
+        value={postText}
+        onChangeText={setPostText}
+      />
+      <Button
+        onPress={() => {
+          // Pass params back to home screen
+          navigation.popTo('Home', { post: postText });
+        }}
+      >
+        Done
+      </Button>
+    </View>
+  );
+}
+
 const RootStack = createNativeStackNavigator({
   initialRouteName: 'Home',
   screenOptions:{
@@ -76,6 +118,9 @@ const RootStack = createNativeStackNavigator({
         screen : DetailsScreen,
         initialParams: { itemId: 42 },
 
+    },
+    CreatePost: {
+        screen : CreatePostScreen,
     }
   },
 });
