@@ -6,12 +6,18 @@ import { Link } from '@react-navigation/native';
 import { Button } from '@react-navigation/elements';
 
 function HomeScreen() {
-      const navigation = useNavigation();
+    const navigation = useNavigation();
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
-      <Button onPress={() => navigation.navigate('Details')}>
+      <Button onPress={() => 
+        // navigation.navigate('Details')
+        navigation.navigate('Details', {
+            itemId: 86,
+            otherParam: 'anything you want here',
+          })
+        }>
         Go to Details
       </Button>
 
@@ -22,13 +28,25 @@ function HomeScreen() {
   );
 }
 
-function DetailsScreen() {
+function DetailsScreen({route}) {
     const navigation = useNavigation();
+    const { itemId, otherParam } = route.params;
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap:4}}>
-      <Text>Details Screen</Text>
-        <Button onPress={() => navigation.push('Details')}>
+        <Text>Details Screen</Text>
+      
+        <Text>itemId: {JSON.stringify(itemId)}</Text>
+        <Text>otherParam: {JSON.stringify(otherParam)}</Text>
+
+
+        <Button onPress={() => 
+            // navigation.push('Details')
+             navigation.push('Details', {
+              // Randomly generate an ID for demonstration purposes
+              itemId: Math.floor(Math.random() * 100),
+            })
+            }>
         Go to Details... again
         </Button>
 
