@@ -42,7 +42,7 @@ function DetailsScreen({route}) {
 
         <Button onPress={() => 
             // navigation.push('Details')
-             navigation.push('Details', {
+             navigation.replaceParams('Details', {
               // Randomly generate an ID for demonstration purposes
               itemId: Math.floor(Math.random() * 100),
             })
