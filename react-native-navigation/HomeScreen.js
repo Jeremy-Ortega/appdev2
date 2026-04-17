@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, Settings } from 'react-native';
 import { createStaticNavigation, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Link } from '@react-navigation/native';
@@ -18,8 +18,25 @@ function HomeScreen({route}) {
 
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap:4 }}>
       <Text>Home Screen</Text>
+
+       <Button onPress={() => navigation.navigate('More',{screen: 'Profile'})}>
+            Profile
+        </Button>
+      <Button
+        onPress={
+          () =>
+            navigation.navigate('More', {
+              screen: 'Settings',
+              params: { userId: 'jane' },
+            })
+        }>
+        Go to Settings
+      </Button>
+
+
+
       <Button onPress={() => 
         // navigation.navigate('Details')
         navigation.navigate('Details', {
@@ -34,6 +51,8 @@ function HomeScreen({route}) {
         <Button onPress={() => navigation.navigate('CreatePost')}>
             Create post
         </Button>
+
+        
         <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
 
 
@@ -58,7 +77,7 @@ function DetailsScreen({route}) {
 
         <Button onPress={() => 
             // navigation.push('Details')
-             navigation.replaceParams('Details', {
+             navigation.push('Details', {
               // Randomly generate an ID for demonstration purposes
               itemId: Math.floor(Math.random() * 100),
             })
@@ -102,6 +121,33 @@ function CreatePostScreen({ route }) {
   );
 }
 
+function SettingsScreen({ route }) {
+  const { userId } = route.params;
+
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Settings Screen</Text>
+      <Text>User ID: {JSON.stringify(userId)}</Text>
+    </View>
+  );
+}
+
+function ProfileScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Profile Screen</Text>
+    </View>
+  );
+}
+
+
+const MoreStack = createNativeStackNavigator({
+  screens: {
+    Settings: SettingsScreen,
+    Profile: ProfileScreen,
+  },
+});
+
 const RootStack = createNativeStackNavigator({
   initialRouteName: 'Home',
   screenOptions:{
@@ -121,9 +167,12 @@ const RootStack = createNativeStackNavigator({
     },
     CreatePost: {
         screen : CreatePostScreen,
-    }
+    },
+    More : MoreStack,
   },
 });
+
+
 
 const Navigation = createStaticNavigation(RootStack);
 
